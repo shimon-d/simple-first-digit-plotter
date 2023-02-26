@@ -1,14 +1,16 @@
 import sys
+
 import matplotlib.pyplot as plt
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
+
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QPixmap, QFont
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Graph Plotter")
+        self.setWindowTitle("Benford Curve Plotter")
         self.setFixedSize(400, 300)
 
         # Add logo image to the upper left corner
@@ -25,7 +27,7 @@ class MainWindow(QMainWindow):
         main_widget.setLayout(layout)
 
         # Create the input fields and button
-        y_label = QLabel("Y values:", self)
+        y_label = QLabel("Invoices:", self)
         y_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         y_label.setFont(QFont('Arial', 24))
         y_input = QLineEdit(self)
@@ -52,7 +54,6 @@ class MainWindow(QMainWindow):
                 if y_int == float(y_int):
                     y_list.append(y_int)
             except ValueError:
-                # FIXME: There should be a better exception handler
                 pass
 
         # Create a dictionary to store the count of values by first digit
@@ -79,9 +80,9 @@ class MainWindow(QMainWindow):
         # Create the plot and show it
         plt.plot(x, y, 'bo-', markersize=8)
         plt.xticks(x, [str(i) for i in x])
-        plt.xlabel("First Digits", fontsize=12)
+        plt.xlabel("First Digit Values", fontsize=12)
         plt.ylabel("Occurrences", fontsize=12)
-        plt.title("First Digit Graph", fontsize=14)
+        plt.title("Occurrences Graph", fontsize=14)
         plt.grid(True)
 
         # Show the plot in a new window
